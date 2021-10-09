@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+            * {
+                margin: 0;
+                padding: 0;
+                background-color: #000000;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                box-sizing: border-box;
+                background: transparent;
+            }
+
+            section {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                background: linear-gradient(-30deg, #03a9f4 0%, #3a78b7 50%, #262626 50%, #607d8b 100%);
+                filter: hue-rotate(120deg);
+                animation: animate 10s linear infinite;
+            }
+
+            @keyframes animate {
+                0% {
+                    filter: hue-rotate(0deg);
+                }
+
+                100% {
+                    filter: hue-rotate(120deg);
+                }
+            }
+
+            .card {
+                max-width: 300px;
+                width: 100%;
+                color: white;
+                box-shadow: 0 0 2px 0 white;
+                background: rgba(255, 255, 255, 0.1);
+                box-shadow: 0 5px 35px rgba(0, 0, 0, 0.2);
+                border-radius: 6px;
+                position: relative;
+            }
+
+            .card::after {
+                content: "";
+                position: absolute;
+                top: 5px;
+                left: 5px;
+                right: 5px;
+                bottom: 5px;
+                border-radius: 5px;
+                /*background: linear-gradient(to bottom,rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.1) 15%,transparent 50%,transparent 85%,rgba(255,255,255,0.3) 100%);*/
+                background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 15%, transparent 50%, transparent 85%, rgba(255, 255, 255, 0.3) 100%);
+                z-index: -1;
+            }
+
+            .card .inner {
+                z-index: 2;
+                padding: 10px;
+                margin: 20px;
+                background: transparent;
+            }
+
+            .card .inner h3 {
+                font-size: 20px;
+            }
+
+            .card .inner .details {
+                margin-top: 20px;
+                width: 220px;
+            }
+
+            .card .inner .details .username_class {
+                width: 100%;
+                border: 1px solid;
+                padding: 5px;
+                margin-bottom: 10px;
+                background: transparent;
+                border-radius: 5px;
+            }
+
+            .card .inner .details .username_class input {
+                border: none;
+                outline: none;
+                color: white;
+            }
+
+            input::placeholder {
+                color: white;
+            }
+
+            .remember {
+                font-size: 15px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                outline: none;
+                border: none;
+                text-align: center;
+                color: black;
+                background-color: #f1f1f1;
+                border-radius: 8px;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            .forgot a {
+                font-size: 13px;
+                color: white;
+                text-decoration: none;
+            }
+
+            .forgot span {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
+            .signup-box {
+                position: absolute;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background: linear-gradient(45deg, #9fbaa8, #31354c);
+                top: 0;
+                transition: 0.4s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .showed {
+                left: 0;
+            }
+
+            .close-button {
+                position: absolute;
+                color: #000;
+                top: 40px;
+                right: 40px;
+                font-size: 30px;
+                opacity: 0.7;
+                cursor: pointer;
+            }
+
+            .signup-box .inner {
+                width: 300px;
+                height: 300px;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 5px 35px rgba(0, 0, 0, 0.8);
+            }
+
+            .signup-box .inner .header {
+                width: 100%;
+                height: 50px;
+                background-color: #262626;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 20px;
+                letter-spacing: 0.1em;
+            }
+
+            .signup-box .inner .signup-form {
+                width: 100%;
+                height: 250px;
+                background-color: black;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .signup-box .inner .signup-form input {
+                width: 100%;
+                outline: none;
+                border: 1px solid white;
+                border-radius: 3px;
+                color: white;
+                padding: 3px;
+            }
+
+            .signup-box .inner .signup-form input:focus {
+                color: #3498db;
+            }
+
+            .signup-btn {
+                cursor: pointer;
+                transition: 0.5s;
+            }
+
+            .signup-btn:hover {
+                font-size: 20px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <section>
+            <div class="card">
+                <div class="inner">
+                    <h3>Login</h3>
+                    <div class="details">
+                        <form action="login_page" method="POST">
+                            {% csrf_token %}
+                            <div class="username_class">
+                                <i class="fas fa-user"></i>
+                                <input type="text" placeholder="UserName" name="username" id="username">
+                            </div>
+                            <div class="username_class">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" placeholder="Password" name="password" id="password">
+                            </div>
+                            <div class="remember">
+                                <input type="checkbox">
+                                <span>Remember Me</span>
+                            </div>
+                            <!--a href="#" class="btn">LOGIN</a-->
+                            <input type="submit" value="LOGIN" class="btn">
+                        </form>
+                    </div>
+                    <div class="forgot"><a href="#">Forgot <span>Password</span></a></div>
+                    <div class="forgot signupbtn"><a>Need an <span>Account</span></a></div>
+                </div>
+            </div>
+        </section>
+        <div class="signup-box">
+            <div class="close-button">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="inner">
+                <div class="header">
+                    SignUp
+                </div>
+                <form class="signup-form" action="register_form" method="POST">
+                    {% csrf_token %}
+                    <input type="text" placeholder="First Name" name="fname" id="fname">
+                    <input type="text" placeholder="Last Name" name="lname" id="lname">
+                    <input class="textb" type="email" placeholder="Email" name="email" id="email">
+                    <input class="textb" type="password" placeholder="Password" name="password1" id="password1">
+                    <input class="textb" type="password" placeholder="Confirm Password" name="password2" id="password2">
+                    <input type="submit" class="signup-btn" value="Signup">
+                </form>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+        $(".signupbtn").on("click", function () {
+            $(".signup-box").toggleClass("showed");
+        });
+        $(".close-button").on("click", function () {
+            $(".signup-box").toggleClass("showed");
+        });
+    </script>
+
+</html>
